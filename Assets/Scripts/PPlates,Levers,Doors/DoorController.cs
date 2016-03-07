@@ -6,29 +6,30 @@ public class DoorController : MonoBehaviour {
 	// Use this for initialization
 
 	public bool open;
-	public bool requireMultiplePlates;
-	public bool mouthDoor;
 
+	public bool requireMultiplePlates;
+	public bool requireTwoPlates;
     public Animator mouth;
 	private bool startState;
-	private bool opening;
-	private bool closing;
 	private BoxCollider2D myCollider;
     private Rigidbody2D myRigidBody;
 
-
 	public int neededToOpen;
+
+
+	private bool opening;
+	private bool closing;
+
 
 	[HideInInspector]
 	public int platesActivated;
 
 
 	void Start () {
-
-		if (mouthDoor) {
+		assignState ();
+		if (gameObject.name == "mouth_door") {
 			mouth = GetComponent<Animator> ();
 		}
-		assignState ();
 		myCollider = gameObject.GetComponent<BoxCollider2D>() as BoxCollider2D;
         startState = open;
 
@@ -40,33 +41,27 @@ public class DoorController : MonoBehaviour {
 		myCollider = gameObject.GetComponent<BoxCollider2D>() as BoxCollider2D;
 
 		if (open) {
-			
-			Debug.Log ("open");
-			myCollider.size = new Vector2(0,0);
-			if (mouthDoor) {
-				mouth.SetBool ("open", true);		//gameObject.GetComponent<MeshRenderer> ().enabled = false;
-				myRigidBody.gravityScale = 1;
-			}
 
-			if (!mouthDoor) {
+
+
+			Debug.Log ("open");
+			if (gameObject.name == "mouth_door") {
+				mouth.SetBool ("open", true);		//gameObject.GetComponent<MeshRenderer> ().enabled = false;
+			} else {
 				opening = true;
 			}
-				
+			
+			myCollider.size = new Vector2(0,0);
+           // myRigidBody.gravityScale = 1;
 		} else if (!open) {
 			Debug.Log ("closed");
             //gameObject.GetComponent<MeshRenderer> ().enabled = true;
-//            mouth.SetBool("open", false);
+			if (gameObject.name == "mouth_door") {
+				mouth.SetBool("open", false);
 
-			if (!mouthDoor) {
+				myCollider.size = new Vector2 (1.5f, 0.8f);
+			} else {
 				closing = true;
-			}
-
-            if (gameObject.name == "mouth_door")
-            {
-                myCollider.size = new Vector2(1.5f, 0.8f);
-            }
-            else
-            {
                 myCollider.size = new Vector2(1, 1);
             }
         }
@@ -77,7 +72,6 @@ public class DoorController : MonoBehaviour {
 		assignState ();
 
 	}
-
 
 
     public void turnOn()
@@ -102,8 +96,9 @@ public class DoorController : MonoBehaviour {
 
 
 	public void Update(){
+
+
 		Color color = this.gameObject.GetComponent<MeshRenderer> ().material.color;
-		Debug.Log (color.a);
 
 
 		if (opening && open) {
@@ -122,4 +117,5 @@ public class DoorController : MonoBehaviour {
 		}
 
 	}
+
 }

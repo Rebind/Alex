@@ -30,9 +30,10 @@ public class RangeIndicator : MonoBehaviour {
 	}
 
 	private void moveToClosest () {
-		//rangeIndicator.SetActive(true);
-		targetPos = new Vector3(target.transform.position.x, target.transform.position.y, 
+        //rangeIndicator.SetActive(true);
+        /*targetPos = new Vector3(target.transform.position.x, target.transform.position.y, 
 		target.transform.position.z);
-		transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-	}
+		transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);*/
+        transform.position = target.transform.position;
+    }
 }

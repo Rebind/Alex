@@ -37,17 +37,22 @@ public class LeverController : MonoBehaviour {
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Z) && nearLever()){
 			toggleLever ();
+			Debug.Log("Lever Tripped");
+			//lever toggle
 		}
 
 	}
 
 
 	bool nearLever(){
-		if (Vector3.Distance (this.transform.position, myCamera.targetTransform.position) < maximumActivationDistance) {
-			return true;
-		} else {
+		if (myCamera.target.tag == "Player" || myCamera.target.tag == "arm") {
+			if (Vector3.Distance (this.transform.position, myCamera.targetTransform.position) < maximumActivationDistance) {
+				return true;
+			} else {
+				return false;
+			}
+		} else
 			return false;
-		}
 
 	}
 

@@ -17,6 +17,9 @@ public class LimbController : MonoBehaviour
 	public AudioClip attachSound;
 
 
+	private float timer;
+
+
 	string objectTag;
 	private Sprite currentBodyState; //stores the current state of the body, gets from the array
 	private Animator myAnimator; //Animator for the different states
@@ -80,7 +83,8 @@ public class LimbController : MonoBehaviour
 			//handleSounds ();
 		
 		}
-
+		timer += Time.deltaTime;
+			
 	}
 
 	/*
@@ -292,7 +296,12 @@ public class LimbController : MonoBehaviour
 		{
 			hasTorso = true;
 			assignState();
-			torso.SetActive(false);
+			//torso.SetActive (false);
+			torso.transform.Translate(new Vector3(999999,99999,9999));
+
+			//torso.GetComponent<Player>().enabled = false;
+
+
 
 		}
 		else if (hasTorso && objectTag == "arm")
@@ -300,14 +309,21 @@ public class LimbController : MonoBehaviour
 			
 			if (!hasArm)
 			{
-				arm.SetActive (false);
+
+				arm.transform.Translate(new Vector3(999999,99999,9999));
+	
+				arm.GetComponent<Player>().enabled = false;
+
+				
 				hasArm = true;
 
 			}
 			else if (hasArm && !hasSecondArm)
 			{
 				hasSecondArm = true;
-				twoArms.SetActive(false);
+				twoArms.transform.Translate(new Vector3(999999,99999,9999));
+				twoArms.GetComponent<Player>().enabled = false;
+
 			}
 			hasPickaxe = true;
 			assignState();
@@ -317,12 +333,18 @@ public class LimbController : MonoBehaviour
 			if (!hasLeg)
 			{
 				hasLeg = true;
-				leg.SetActive(false);
+				leg.transform.Translate(new Vector3(999999,99999,9999));
+				leg.GetComponent<Player>().enabled = false;
+
 			}
 			else if (hasLeg && !hasSecondLeg)
 			{
+
+	
+				twoLegs.transform.Translate(new Vector3(999999,99999,9999));
+				twoLegs.GetComponent<Player>().enabled = false;
+
 				hasSecondLeg = true;
-				twoLegs.SetActive(false);
 			}
 
 			assignState();
@@ -342,14 +364,14 @@ public class LimbController : MonoBehaviour
 	public void detach()
 	{
 		
-		if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("XBox_DPadY") == 1) && hasTorso)
+		if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetAxisRaw("XBox_DPadY") == 1) && hasTorso && !hasArm && !hasLeg)
 		{
 			if (dpadY == false) {
 				if(player.isClimbing){
 					player.isClimbing = false;
 				}
 				torso.SetActive (true); 
-				checkForDifferentLimbs ();
+				//checkForDifferentLimbs ();
 				instantiateBodyParts (torso);
 				hasTorso = false;
 				assignState ();
@@ -471,7 +493,14 @@ public class LimbController : MonoBehaviour
 	private void instantiateBodyParts(GameObject limb)
 	{
 		pos = player.transform.position;
-		limb.transform.position = pos;
+		if (limb.tag != "torso") {
+			limb.transform.position = pos;
+		}
+		else if (limb.tag == "torso") {
+			limb.transform.position = new Vector3(pos.x,pos.y+4f,pos.z);
+
+		}
+
 	}
 	
 	/*

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3785f0edbce667e46b9326a83ecf53bf
+timeCreated: 1456809828
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - emptyProgressBar: {fileID: 2800000, guid: 1dab16d1f2583db449e1c0da61446741, type: 3}
+  - fullProgressBar: {fileID: 2800000, guid: f69d15aad9e62f348aabd2bf5994045f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

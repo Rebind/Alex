@@ -57,7 +57,7 @@ public class SwitchControl : MonoBehaviour {
 		ClosestLimb = FindClosestLimb();
 		updateLists ();
 		//Switch to nearest limb
-		if (Input.GetKeyUp(KeyCode.E) || Input.GetAxisRaw("Xbox_LeftTrigger") != 0)
+		if (Input.GetKeyUp(KeyCode.E) || Input.GetAxisRaw("Xbox_RightTrigger") != 0)
 		{
 			//Debug.Log("E is pressed");
 			if(axisLeft == false){
@@ -79,7 +79,7 @@ public class SwitchControl : MonoBehaviour {
 			}
 		}
 		//Return to head
-		if (Input.GetKeyUp(KeyCode.Q) || Input.GetAxisRaw("Xbox_RightTrigger") != 0)
+		if (Input.GetKeyUp(KeyCode.Q) || Input.GetAxisRaw("Xbox_LeftTrigger") != 0)
 		{
 			//Debug.Log("Q is pressed");
 			if(axisRight == false && inControl != player){

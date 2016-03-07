@@ -19,7 +19,7 @@ public class FollowerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		target = ControlScript.inControl;
-		targetPos = new Vector3(target.transform.position.x, target.transform.position.y + 5, 
+		targetPos = new Vector3(target.transform.position.x, target.transform.position.y + 4f, 
 			target.transform.position.z);
 		transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 	}
